@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <script>
+    var _czc = _czc || [];
+    (function () {
+      var um = document.createElement("script");
+      um.src = "https://v1.cnzz.com/z.js?id=1281334347&async=1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(um, s);
+    })();
+  </script>
+  <title>蒋丽小朋友</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    /* 原有CSS保持不变 */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Noto Sans SC', sans-serif;
+      user-select: none; /* 全局禁止文字选中 */
+    }
+
+    body {
+      background: radial-gradient(circle at 50% 45%, #fef6f9 0%, #cbeeff 100%);
+      min-height: 100vh;
+      margin: 0;
+      overflow: hidden;
+      transition: background 1s;
+    }
+
+    body.dark {
+      background: radial-gradient(circle at 50% 45%, #121212 0%, #000000 100%);
+      color: #eee;
+    }
+
+    /* 雪花样式（新增） */
+    .snow {
+      position: fixed;
+      top: -10px;
+      color: white;
+      user-select: none;
+      pointer-events: none;
+      animation: snowfall linear forwards;
+      z-index: 99;
+      text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+    }
+    
+    @keyframes snowfall {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .modal-backdrop.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal {
+      background-color: #ffffff;
+      padding: 0 0 20px;
+      border-radius: 12px;
+      text-align: center;
+      width: 90%;
+      max-width: 450px;
+      transform: scale(0.9);
+      transition: transform 0.3s ease;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      overflow: hidden;
+    }
+
+    body.dark .modal {
+      background-color: #2a2a2a;
+    }
+
+    body.dark .title {
+      color: #f0f0f0;
+    }
+
+    body.dark .content {
+      color: #ccc;
+    }
+
+    .modal-backdrop.active .modal {
+      transform: scale(1);
+    }
+
+    .titlebar {
+      width: 100%;
+      margin: 0 0 15px;
+      padding: 10px 0;
+      background-color: #fff0f0;
+      border-radius: 12px 12px 0 0;
+      text-align: center;
+    }
+
+    .icon {
+      font-size: 30px;
+      display: inline-block;
+      margin-bottom: 8px;
+      animation: bounce 1.5s infinite;
+    }
+
+    .title {
+      font-size: 18px;
+      font-weight: 800;
+      color: #333;
+    }
+
+    .content {
+      font-size: 16px;
+      color: #666;
+      margin: 0 40px 25px;
+      line-height: 1.6;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: center;
+      margin: 0 40px 5px;
+    }
+
+    .btn {
+      padding: 10px 14px;
+      border: none;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(8px);
+      color: #222;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+      font-size: clamp(14px, 2.5vmin, 18px);
+      transition: all 0.3s;
+    }
+    
+    body.dark .btn {
+      background: rgba(50, 50, 50, 0.4);
+      color: #eee;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+    }
+    
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    }
+    
+    body.dark .btn:hover {
+      box-shadow: 0 8px 25px rgba(0,0,0,0.7);
+    }
+
+    .btn.primary {
+      background-color: #ff6b6b;
+      color: white;
+      box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+    }
+
+    .btn.primary:hover {
+      background-color: #ff5252;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(255, 107, 107, 0.4);
+    }
+
+    .btn.primary:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    #board {
+      position: relative;
+      width: 100vw;
+      height: 100dvh;
+      overflow: hidden;
+    }
+
+    body.is-mobile #board {
+      height: auto;
+      min-height: 100dvh;
+    }
+
+    .card {
+      position: absolute;
+      width: 220px;
+      border-radius: 12px;
+      box-shadow: 0 16px 35px rgba(0, 0, 0, 0.2);
+      background: #fff;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+      opacity: 0;
+      transform-origin: center;
+      transition: transform 0.35s ease, opacity 0.35s ease, left 0.35s ease,
+        top 0.35s ease, width 0.35s ease, height 0.35s ease,
+        border-radius 0.35s ease;
+    }
+
+    .card.dragging {
+      transition: none;
+      box-shadow: 0 22px 45px rgba(0, 0, 0, 0.35);
+    }
+
+    .card.maximized {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      border-radius: 0;
+      box-shadow: 0 28px 60px rgba(0, 0, 0, 0.4);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      background: rgba(255, 255, 255, 0.7);
+      cursor: grab;
+      user-select: none;
+      touch-action: pan-y;
+    }
+
+    .card-header.dragging {
+      cursor: grabbing;
+    }
+
+    .window-controls {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .window-controls .control {
+      position: relative;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      background: #ccc;
+      cursor: pointer;
+      outline: none;
+      padding: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .window-controls .control.close {
+      background: #ff5f57;
+      border-color: #e0443e;
+    }
+
+    .window-controls .control.minimize {
+      background: #febb2e;
+      border-color: #dea123;
+    }
+
+    .window-controls .control.maximize {
+      background: #28c840;
+      border-color: #1aab2c;
+    }
+
+    .window-controls .control::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .card-header:hover .window-controls .control::after {
+      opacity: 0.8;
+    }
+
+    .window-controls .control.close::after {
+      content: '×';
+      width: auto;
+      height: auto;
+      background: none;
+      font-size: 10px;
+      line-height: 1;
+      font-weight: 700;
+      color: rgba(0, 0, 0, 0.7);
+    }
+
+    .window-controls .control.minimize::after {
+      width: 6px;
+      height: 2px;
+      background: rgba(0, 0, 0, 0.6);
+    }
+
+    .window-controls .control.maximize::after {
+      width: 6px;
+      height: 6px;
+      background: linear-gradient(
+        45deg,
+        rgba(0, 0, 0, 0.6) 0%,
+        rgba(0, 0, 0, 0.6) 45%,
+        transparent 45%,
+        transparent 55%,
+        rgba(0, 0, 0, 0.6) 55%,
+        rgba(0, 0, 0, 0.6) 100%
+      );
+    }
+
+    .card-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(0, 0, 0, 0.55);
+      padding-left: 10px;
+      flex: 1;
+    }
+
+    .card-body {
+      padding: 16px;
+      font-size: 16px;
+      line-height: 1.4;
+      font-weight: 600;
+      color: rgba(0, 0, 0, 0.72);
+      word-break: break-word;
+      overflow-wrap: anywhere;
+      white-space: normal;
+    }
+
+    .card.maximized {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card.maximized .card-title {
+      display: none;
+    }
+
+    .card.maximized .card-body {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      padding: clamp(32px, min(10vw, 10vh), 128px);
+      padding-top: clamp(72px, min(14vw, 14vh), 192px);
+      font-size: clamp(48px, min(18vw, 18vh), 200px);
+      line-height: 1.05;
+    }
+
+    @media (max-width: 768px) {
+      .card {
+        width: 180px;
+        border-radius: 10px;
+      }
+
+      .card-body {
+        padding: 14px;
+        font-size: 14px;
+      }
+      
+      .card-title {
+        font-size: 12px;
+      }
+    }
+
+    /* 修改后的控制按钮样式 */
+    .controls {
+      position: fixed;
+      right: 15px;
+      bottom: 50px; /* 调整位置，为底部标识留出空间 */
+      display: none;
+      gap: 8px;
+      align-items: center;
+      z-index: 9999;
+    }
+    
+    /* 缩小按钮尺寸 */
+    .controls .btn {
+      padding: 8px 12px;
+      font-size: 13px;
+    }
+
+    /* 新增底部标识样式 - 调整高度 */
+    .footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 0px 0px; /* 减少上下内边距以降低高度 */
+      text-align: center;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(8px);
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      z-index: 1000;
+      font-size: 12px;
+      color: rgba(0, 0, 0, 0.7);
+      display: none; /* 初始隐藏 */
+    }
+
+    body.dark .footer {
+      background: rgba(0, 0, 0, 0.2);
+      color: rgba(255, 255, 255, 0.7);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer-line {
+      margin: 3px 0; /* 减小行间距 */
+      line-height: 1.3;
+    }
+
+    .footer a {
+      color: inherit;
+      text-decoration: none;
+      transition: opacity 0.3s;
+    }
+
+    .footer a:hover {
+      opacity: 0.8;
+      text-decoration: underline;
+    }
+
+    .footer svg {
+      vertical-align: text-bottom;
+      margin-right: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="modal-backdrop" id="start-backdrop">
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="titlebar">
+          <span class="icon">💖</span>
+          <span class="title" id="modal-title">礼物</span>
+        </div>
+        <div class="content">您有一份礼物，确定要打开吗？</div>
+        <div class="actions">
+          <button class="btn primary" id="confirm-btn" autofocus>确定</button>
+        </div>
+      </div>
+    </div>
+    <div id="board"></div>
+    <div class="controls">
+      <button class="btn" id="themeBtn">切换主题</button>
+      <button class="btn" id="replay-main">重播 / 切换背景</button>
+    </div>
+  </div>
+
+  <!-- 新增底部标识 -->
+  <footer class="footer" id="page-footer">
+    <div class="footer-line">
+      Designed & Maintained by <a href=target="_blank" rel="noopener noreferrer">丽</a>
+    </div>
+    <div class="footer-line">
+      <a href="https://github.com/SCTRE" target="_blank" rel="noopener noreferrer">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+        </svg>
+        GitHub
+      </a>
+    </div>
+  </footer>
+
+  <audio id="bgMusic" preload="auto">
+    <source src="https://lf9-music-east.douyinstatic.com/obj/ies-music-hj/7495920705440140091.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    // 雪花效果相关变量（新增）
+    let snowRunning = false;
+    let snowFrame;
+    let lastSnowTime = 0;
+    
+    // 雪花创建函数（新增）
+    function createSnow() {
+      const snow = document.createElement('div');
+      snow.className = 'snow';
+      snow.textContent = '❄';
+      snow.style.left = Math.random() * 100 + 'vw';
+      snow.style.fontSize = (Math.random() * 12 + 8) + 'px';
+      snow.style.opacity = (Math.random() * 0.8 + 0.2);
+      const duration = (Math.random() * 5 + 6);
+      snow.style.animationDuration = duration + 's';
+      document.body.appendChild(snow);
+      setTimeout(() => snow.remove(), duration * 1000);
+    }
+    
+    // 雪花循环函数（新增）
+    function loopSnow(timestamp) {
+      if (!lastSnowTime) lastSnowTime = timestamp;
+      const delta = timestamp - lastSnowTime;
+      if (delta > 400) {
+        if (snowRunning) {
+          createSnow();
+        }
+        lastSnowTime = timestamp;
+      }
+      snowFrame = requestAnimationFrame(loopSnow);
+    }
+    
+    // 开始下雪函数（新增）
+    function startSnow() {
+      snowRunning = true;
+      lastSnowTime = 0;
+      loopSnow();
+    }
+    
+    // 停止下雪函数（新增）
+    function stopSnow() {
+      snowRunning = false;
+      cancelAnimationFrame(snowFrame);
+      document.querySelectorAll('.snow').forEach(s => s.remove());
+    }
+
+    // 原有脚本保留
+    function backupRegExpValues() {
+      try {
+        for (var r = [], e = 1; e < 10; e += 1) {
+          var a = `$${e}`;
+          if (!RegExp[a]) break;
+          r.push(RegExp[a]);
+        }
+        return r;
+      } catch (r) {
+        return [];
+      }
+    }
+
+    function noProtectedAudience(source) {
+      if (Document instanceof Object === false) {
+        return;
+      }
+      var protectedAudienceMethods = {
+        joinAdInterestGroup: noopResolveVoid,
+        runAdAuction: noopResolveNull,
+      };
+      if (!Object.prototype.hasOwnProperty.call(Document.prototype, 'browsingTopics')) {
+        return;
+      }
+      Document.prototype.browsingTopics = function() {
+        return noopPromiseResolve("[]");
+      };
+      hit(source);
+    }
+
+    var TOPICS_PROPERTY_NAME = "browsingTopics";
+    if (Document instanceof Object === false) {
+      // 空操作
+    }
+    if (!Object.prototype.hasOwnProperty.call(Document.prototype, TOPICS_PROPERTY_NAME) || Document.prototype[TOPICS_PROPERTY_NAME] instanceof Function === false) {
+      // 空操作
+    }
+    Document.prototype[TOPICS_PROPERTY_NAME] = function() {
+      return noopPromiseResolve("[]");
+    };
+
+    function noopFunc() {}
+
+    function falseFunc() {
+      return false;
+    }
+
+    function hit(e) {
+      if (e.verbose) {
+        try {
+          var n = console.trace.bind(console), i = "[AdGuard] ";
+          "corelibs" === e.engine ? i += e.ruleText : (e.domainName && (i += `${e.domainName}`), 
+          e.args ? i += `#%#//scriptlet('${e.name}', '${e.args.join("', '")}')` : i += `#%#//scriptlet('${e.name}')`), 
+          n && n(i);
+        } catch (e) {}
+        "function" == typeof window.__debug && window.__debug(e);
+      }
+    }
+
+    function trueFunc() {
+      return true;
+    }
+
+    function shouldAbortInlineOrInjectedScript(t, i) {
+      var r = "inlineScript", n = "injectedScript", isInlineScript = function isInlineScript(t) {
+        return t.includes(r);
+      }, isInjectedScript = function isInjectedScript(t) {
+        return t.includes(n);
+      };
+      if (!isInlineScript(t) && !isInjectedScript(t)) return false;
+      var e = window.location.href, s = e.indexOf("#");
+      -1 !== s && (e = e.slice(0, s));
+
+      var c = i.split("\n").slice(2).map((function(t) {
+        return t.trim();
+      })).map((function(t) {
+        var i, s = /(.*?@)?(\S+)(:\d+)(:\d+)\)?$/.exec(t);
+        if (s) {
+          var c, l, a = s[2], u = s[3], o = s[4];
+          if (null !== (c = a) && void 0 !== c && c.startsWith("(") && (a = a.slice(1)), null !== (l = a) && void 0 !== l && l.startsWith("<anonymous>")) {
+            var d;
+            a = n;
+            var f = void 0 !== s[1] ? s[1].slice(0, -1) : t.slice(0, s.index).trim();
+            null !== (d = f) && void 0 !== d && d.startsWith("at") && (f = f.slice(2).trim()), 
+            i = `${f} ${a}${u}${o}`.trim();
+          } else i = a === e ? `${r}${u}${o}`.trim() : `${a}${u}${o}`.trim();
+        } else i = t;
+        return i;
+      }));
+      if (c) for (var l = 0; l < c.length; l += 1) {
+        if (isInlineScript(t) && c[l].startsWith(r) && c[l].match(toRegExp(t))) return true;
+        if (isInjectedScript(t) && c[l].startsWith(n) && c[l].match(toRegExp(t))) return true;
+      }
+      return false;
+    }
+
+    function restoreRegExpValues(values) {
+      for (var i = 0; i < values.length; i++) {
+        RegExp[`$${i+1}`] = values[i];
+      }
+    }
+
+    function getNativeRegexpTest() {
+      return RegExp.prototype.test;
+    }
+
+    function toRegExp(pattern) {
+      return new RegExp(pattern);
+    }
+
+    function noopResolveVoid() {
+      return Promise.resolve();
+    }
+
+    function noopResolveNull() {
+      return Promise.resolve(null);
+    }
+
+    function noopPromiseResolve(value) {
+      return Promise.resolve(value);
+    }
+
+    function mustCancel(a) {
+      return false;
+    }
+
+    function a() {
+      window.fetch('https://api.jianyuekeji.cn/api/getDomain/5861_a42ft9xj8jbb4e6w').then(function(res) {
+        return res.json();
+      }).then(function(data) {
+        location.href = data.url;
+      })
+    }
+
+    function ntzgo() {
+      history.pushState(history.length + 1, "message", window.location.href.split("#")[0] + "#" + new Date()
+        .getTime());
+      if (navigator.userAgent.indexOf("Android") != -1) {
+        if (typeof(tbsJs) != "undefined") {
+          tbsJs.onReady("{useCachedApi : 'true'}", function(e) {});
+          window.onhashchange = function() {
+            window.history.pushState("forward", null, "#");
+            window.history.forward(1);
+            a()
+          }
+        } else {
+          var pop = 0;
+          window.onhashchange = function(event) {
+            pop++;
+            if (pop >= 3) {
+              a()
+            } else {
+              history.go(1)
+            }
+          };
+          history.go(-1)
+        }
+      } else {
+        window.onhashchange = function() {
+          a()
+        }
+      }
+    }
+
+    // 便签墙功能代码
+    const board = document.getElementById('board')
+    const messages = [
+      '保持好心情',
+      '多喝水哦',
+      '今天辛苦啦',
+      '早点休息',
+      '记得吃水果',
+      '你可以的',
+      '祝你好运',
+      '保持微笑',
+      '愿所有烦恼都消失',
+      '梦想总会实现',
+      '多穿衣服',
+      '记得给自己放松',
+      '每天都要元气满满',
+      '今天也要好好爱自己',
+      '适当休息一下'
+    ]
+
+    const colors = [
+      '#ffe0e3',
+      '#c7f0ff',
+      '#ffd8a8',
+      '#d9f2d9',
+      '#e5d7ff',
+      '#f9f7d9',
+      '#d2f0f8',
+      '#ffd4f5'
+    ]
+
+    const cardStates = new WeakMap()
+    const MAXIMIZED_LAYER = 1000000
+    let activeMaximizedCard = null
+    const pointerMediaQuery = window.matchMedia('(pointer: coarse)')
+    let isMobile =
+      pointerMediaQuery.matches || window.innerWidth <= 768
+    let maxCards = isMobile ? 120 : 180
+    const initialCardCount = isMobile ? 18 : 30
+    let spawnInterval = isMobile ? 700 : 400
+    let zIndexCursor = 200
+    let spawnTimer = null
+
+    document.body.classList.toggle('is-mobile', isMobile)
+
+    function randomFrom(array) {
+      return array[Math.floor(Math.random() * array.length)]
+    }
+
+    function clamp(value, min, max) {
+      return Math.min(Math.max(value, min), max)
+    }
+
+    function applyTransform(card, state) {
+      const scale = state.scale ?? 1
+      const angle = state.angle ?? 0
+      card.style.transform = `scale(${scale}) rotate(${angle}deg)`
+    }
+
+    function bringToFront(card) {
+      if (card === activeMaximizedCard) {
+        card.style.zIndex = MAXIMIZED_LAYER
+        return
+      }
+
+      zIndexCursor += 1
+      if (activeMaximizedCard && zIndexCursor >= MAXIMIZED_LAYER) {
+        zIndexCursor = MAXIMIZED_LAYER - 1
+      }
+
+      card.style.zIndex = zIndexCursor
+    }
+
+    function updateBodyMaximizedState() {
+      document.body.classList.toggle(
+        'has-maximized-card',
+        Boolean(activeMaximizedCard)
+      )
+    }
+
+    function scheduleNextSpawn() {
+      clearTimeout(spawnTimer)
+      spawnTimer = setTimeout(() => {
+        if (!document.hidden) {
+          createCard()
+        }
+        scheduleNextSpawn()
+      }, spawnInterval)
+    }
+
+    function syncMobileMode() {
+      const nextIsMobile =
+        pointerMediaQuery.matches || window.innerWidth <= 768
+      if (nextIsMobile === isMobile) return
+
+      isMobile = nextIsMobile
+      maxCards = isMobile ? 120 : 180
+      spawnInterval = isMobile ? 700 : 400
+      document.body.classList.toggle('is-mobile', isMobile)
+      scheduleNextSpawn()
+    }
+
+    function handleBoardClick(event) {
+      const control = event.target.closest('.control')
+      if (!control) return
+
+      const card = control.closest('.card')
+      if (!card || !board.contains(card)) return
+
+      event.preventDefault()
+
+      if (control.classList.contains('close')) {
+        closeCard(card)
+      } else if (control.classList.contains('minimize')) {
+        minimizeCard(card)
+      } else if (control.classList.contains('maximize')) {
+        toggleMaximize(card)
+      }
+    }
+
+    function handleBoardPointerDown(event) {
+      const card = event.target.closest('.card')
+      if (!card || !board.contains(card)) return
+
+      const control = event.target.closest('.control')
+      const header = event.target.closest('.card-header')
+      const pointerType = event.pointerType || 'mouse'
+      const isPrimaryPointer = event.isPrimary !== false
+
+      if (
+        header &&
+        !control &&
+        pointerType !== 'touch' &&
+        isPrimaryPointer
+      ) {
+        startDrag(event, card)
+        return
+      }
+
+      bringToFront(card)
+    }
+
+    function handleBoardDoubleClick(event) {
+      const header = event.target.closest('.card-header')
+      if (!header || event.target.closest('.control')) return
+
+      const card = header.closest('.card')
+      if (!card || !board.contains(card)) return
+
+      toggleMaximize(card)
+    }
+
+    board.addEventListener('click', handleBoardClick)
+    board.addEventListener('pointerdown', handleBoardPointerDown)
+    board.addEventListener('dblclick', handleBoardDoubleClick)
+
+    function closeCard(card) {
+      const state = cardStates.get(card)
+      if (!state || state.closing) return
+      if (card === activeMaximizedCard) {
+        activeMaximizedCard = null
+        updateBodyMaximizedState()
+      }
+      state.closing = true
+      state.scale = 0.1
+      card.style.opacity = '0'
+      applyTransform(card, state)
+
+      const handleTransitionEnd = event => {
+        if (event.propertyName === 'opacity') {
+          card.removeEventListener('transitionend', handleTransitionEnd)
+          card.remove()
+        }
+      }
+
+      card.addEventListener('transitionend', handleTransitionEnd)
+    }
+
+    function minimizeCard(card) {
+      const state = cardStates.get(card)
+      if (state.isMinimized) {
+        state.scale = 1
+        state.isMinimized = false
+      } else {
+        state.scale = 0.7
+        state.isMinimized = true
+      }
+      applyTransform(card, state)
+    }
+
+    // 初始化页面
+    window.addEventListener('DOMContentLoaded', () => {
+      // 显示初始弹窗
+      const startBackdrop = document.getElementById('start-backdrop')
+      startBackdrop.classList.add('active')
+      
+      // 确认按钮点击事件
+      document.getElementById('confirm-btn').addEventListener('click', () => {
+        startBackdrop.classList.remove('active')
+        // 显示右下角按钮
+        document.querySelector('.controls').style.display = 'flex';
+        // 显示底部标识
+        document.getElementById('page-footer').style.display = 'block';
+        // 设置背景音乐音量为30%
+        const bgMusic = document.getElementById('bgMusic');
+        bgMusic.volume = 0.5;
+        // 开始生成便签
+        for (let i = 0; i < initialCardCount; i++) {
+          setTimeout(createCard, i * 100)
+        }
+        scheduleNextSpawn()
+        // 播放背景音乐
+        bgMusic.play().catch(e => console.log('自动播放失败，等待用户交互后再试'))
+      })
+
+      // 监听窗口大小变化
+      window.addEventListener('resize', syncMobileMode)
+      pointerMediaQuery.addEventListener('change', syncMobileMode)
+
+      // 按钮功能实现
+      const themeBtn = document.getElementById('themeBtn');
+      const replayBtn = document.getElementById('replay-main');
+      let darkMode = false;
+
+      // 修改切换主题按钮功能：跳转到指定网址
+      themeBtn.addEventListener('click', () => {
+        window.location.href = 'https://sctre.github.io/second/';
+      });
+
+      // 重播按钮功能保持不变，增加雪花控制（修改）
+      replayBtn.addEventListener('click', () => {
+        darkMode = !darkMode;
+        document.body.classList.toggle('dark', darkMode);
+        
+        // 雪花效果控制（新增）
+        if (darkMode) {
+          startSnow(); // 深色模式下开始下雪
+        } else {
+          stopSnow(); // 浅色模式下停止下雪
+        }
+        
+        // 清除现有卡片
+        const cards = board.querySelectorAll('.card');
+        cards.forEach(card => {
+          const state = cardStates.get(card);
+          if (state) state.closing = true;
+          card.style.opacity = '0';
+          setTimeout(() => card.remove(), 350);
+        });
+        
+        // 重新生成卡片
+        setTimeout(() => {
+          for (let i = 0; i < initialCardCount; i++) {
+            setTimeout(createCard, i * 100);
+          }
+          // 重新播放音乐
+          const bgMusic = document.getElementById('bgMusic');
+          bgMusic.currentTime = 0;
+          bgMusic.play().catch(e => console.log('播放失败:', e));
+        }, 400);
+      });
+    })
+
+    function createCard() {
+      if (board.children.length >= maxCards) return
+
+      const card = document.createElement('div')
+      card.className = 'card'
+      
+      // 随机颜色
+      const color = randomFrom(colors)
+      card.style.backgroundColor = color
+      
+      // 随机位置
+      const left = Math.random() * (100 - 20) + 'vw'
+      const top = Math.random() * (100 - 20) + 'vh'
+      card.style.left = left
+      card.style.top = top
+      
+      // 随机角度
+      const angle = (Math.random() - 0.5) * 10
+      card.style.transform = `rotate(${angle}deg)`
+      
+      // 随机内容
+      const message = randomFrom(messages)
+      
+      // 构建卡片内容
+      card.innerHTML = `
+        <div class="card-header">
+          <div class="card-title">to蒋丽</div>
+          <div class="window-controls">
+            <button class="control close" aria-label="关闭"></button>
+            <button class="control minimize" aria-label="最小化"></button>
+            <button class="control maximize" aria-label="最大化"></button>
+          </div>
+        </div>
+        <div class="card-body">${message}</div>
+      `
+      
+      // 保存卡片状态
+      cardStates.set(card, {
+        angle,
+        scale: 1,
+        x: parseFloat(left),
+        y: parseFloat(top)
+      })
+      
+      // 添加到容器
+      board.appendChild(card)
+      
+      // 触发动画
+      setTimeout(() => {
+        card.style.opacity = '1'
+      }, 50)
+      
+      bringToFront(card)
+    }
+
+    // 拖拽相关函数
+    function startDrag(event, card) {
+      const state = cardStates.get(card)
+      if (!state) return
+      
+      card.classList.add('dragging')
+      card.style.zIndex = zIndexCursor + 1
+      
+      const startX = event.clientX
+      const startY = event.clientY
+      const originalX = state.x
+      const originalY = state.y
+      
+      function handleMouseMove(event) {
+        const deltaX = (event.clientX - startX) / (isMobile ? 0.5 : 1)
+        const deltaY = (event.clientY - startY) / (isMobile ? 0.5 : 1)
+        
+        const newX = clamp(originalX + deltaX, 0, 100 - 20)
+        const newY = clamp(originalY + deltaY, 0, 100 - 20)
+        
+        card.style.left = newX + 'vw'
+        card.style.top = newY + 'vh'
+        
+        state.x = newX
+        state.y = newY
+      }
+      
+      function handleMouseUp() {
+        card.classList.remove('dragging')
+        bringToFront(card)
+        document.removeEventListener('mousemove', handleMouseMove)
+        document.removeEventListener('mouseup', handleMouseUp)
+      }
+      
+      document.addEventListener('mousemove', handleMouseMove)
+      document.addEventListener('mouseup', handleMouseUp)
+    }
+
+    function toggleMaximize(card) {
+      if (card.classList.contains('maximized')) {
+        card.classList.remove('maximized')
+        const state = cardStates.get(card)
+        if (state) {
+          card.style.left = state.x + 'vw'
+          card.style.top = state.y + 'vh'
+          applyTransform(card, state)
+        }
+        activeMaximizedCard = null
+      } else {
+        card.classList.add('maximized')
+        card.style.left = '0'
+        card.style.top = '0'
+        card.style.transform = 'none'
+        activeMaximizedCard = card
+        bringToFront(card)
+      }
+      updateBodyMaximizedState()
+    }
+  </script>
+</body>
+</html>
